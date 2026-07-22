@@ -9,6 +9,10 @@ SQLite was chosen as the database for this project because:
 - **Zero Setup**: No server installation, configuration, or management is required.
 - **Persistent Data**: Unlike an in-memory list, data persists across application restarts.
 
+### Storage Isolation
+
+Because all of the API endpoints (`GET`, `POST`, `PUT`, `DELETE`) remained identical in terms of request/response contracts and behavior when swapping the in-memory array for SQLite, it proves that storage is just an implementation detail. The frontend and client applications interact with the API interface seamlessly without needing to know or care how data is stored.
+
 ## Database Details
 
 - **Database File Location**: `tasks.db` (in the project root directory).
@@ -28,11 +32,14 @@ You can query the tasks inside the database using the following command:
 SELECT * FROM tasks;
 ```
 
+Running this query in DB Browser for SQLite against the `tasks.db` file executes a select operation on the `tasks` table, which in this case returned the 3 seeded task rows ("Buy groceries", "Clean room", and "Learn SQLite").
+
 ### DB Browser Screenshot
 
-Below is a preview of the database structure and contents in DB Browser for SQLite:
+Below is a preview showing the results of executing the query in DB Browser for SQLite, returning the 3 default tasks:
 
 ![DB Browser Screenshot](sql_query.png)
+
 
 ---
 
