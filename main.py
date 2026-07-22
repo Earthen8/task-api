@@ -1,8 +1,9 @@
+from starlette import concurrency
 import sqlite3
 from fastapi import FastAPI, Response
 from fastapi.responses import JSONResponse
 
-DB_NAME = "task.db"
+DB_NAME = "tasks.db"
 
 
 def get_db_connection() -> sqlite3.Connection:
@@ -21,6 +22,16 @@ def init_db() -> None:
             done BOOLEAN NOT NULL DEFAULT 0
         )
     """)
+    cursor.execute("SELECT COUNT(*) FROM tasks")
+    if cursor.fetchone()[0] == 0:
+        cursor.executemany(
+            "INSERT INTO tasks (title, done) VALUES (?, ?)",
+            [
+                ("Buy groceries", 0),
+                ("Clean room", 0),
+                ("Learn SQLite", 0),
+            ],
+    )
     conn.commit()
     conn.close()
 

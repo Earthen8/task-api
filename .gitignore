@@ -1,3 +1,3 @@
 .env
 venv
-task.db
+tasks.db
